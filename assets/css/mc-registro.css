@@ -1,0 +1,27 @@
+.mc-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:24px 0}
+.mc-card{border:1.5px solid #1A1326;background:#fff;border-radius:10px;padding:14px;cursor:pointer;transition:.2s ease}
+.mc-card.is-active{box-shadow:0 6px 20px rgba(0,0,0,.12);transform:translateY(-2px);border-color:#241a33}
+.mc-card.is-disabled{opacity:.55;cursor:not-allowed}
+.mc-card header h3{font-size:1.5rem;letter-spacing:.04em;text-align:center;margin:4px 0 10px}
+.mc-card .mc-card-body{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.mc-card .mc-emoji{font-size:38px;line-height:1}
+.mc-card .mc-cta{margin-top:6px;padding:10px 14px;border-radius:8px;background:#22172f;color:#fff;border:0}
+.mc-form-area{margin-top:26px}
+
+.form-box-contact{background:#fff;border:1.5px solid #1A1326;border-radius:10px;padding:20px}
+.grupo-form,.grupo-form-grup-2{display:grid;gap:14px;margin-bottom:14px}
+.grupo-form-grup-2{grid-template-columns:1fr 1fr}
+.grupo-form--item label{display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.grupo-form--item input,.grupo-form--item select,.grupo-form--item textarea{padding:10px;border:1px solid #d4cfe0;border-radius:8px;background:#fff}
+#grupo-5.grupo-submit input[type="submit"]{background:#22172f;color:#fff;border:0;border-radius:10px;padding:12px 16px}
+@media (max-width:900px){.mc-cards{grid-template-columns:1fr}.grupo-form-grup-2{grid-template-columns:1fr}}
+.mc-city-count{ margin-left:.5rem; font-size:.9em; opacity:.7; display:none }
+.mc-card .mc-visual{display:flex;justify-content:center;align-items:center;height:64px;margin:4px 0}
+.mc-card-img{max-height:64px;max-width:100%;object-fit:contain}
+.mc-emoji{font-size:38px;line-height:1}
+/* oculta el input y también el wrapper de CF7 en la primera carga */
+.mc-pais-otro { display: none; }
+.mc-city-count { display: none !important; opacity: 0 !important; }
+.wpcf7-form-control-wrap.pais_otro { display: none; }
+.mc-form-placeholder, header h3, .mc-form-area h2 { font-size: 35px;text-align: center;font-family: 'determination-mono-web-font';}
+.grupo-submit input.wpcf7-form-control.wpcf7-submit.has-spinner { background-color: #fe0000;color: #fff;border: solid 1px #fff;}

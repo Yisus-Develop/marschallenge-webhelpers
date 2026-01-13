@@ -1,0 +1,21 @@
+<wpml-config>
+    <shortcodes>
+        <shortcode>
+            <tag>mc_registro</tag>
+        </shortcode>
+        <shortcode>
+            <tag>webh_acf_accordion</tag>
+            <attributes>
+                <attribute>field</attribute>
+                <attribute>post_id</attribute>
+            </attributes>
+        </shortcode>
+        <shortcode>
+            <tag>mc_agenda_eventos_inline</tag>
+            <attributes>
+                <attribute>btn_text</attribute>
+                <attribute>repeater</attribute>
+            </attributes>
+        </shortcode>
+    </shortcodes>
+</wpml-config>

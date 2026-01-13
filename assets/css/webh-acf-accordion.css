@@ -1,0 +1,145 @@
+/* ========= CONTENEDOR Y ESTRUCTURA ========= */
+.webh-accordion {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: inherit !important;
+}
+.webh-acc-item {
+  margin-bottom: 16px;
+  border: 1.5px solid #1A1326;
+  border-radius: 0;
+  background: #fff;
+}
+
+/* ========= BOTÓN ESTADOS ========= */
+
+/* 1. Default (cerrado): fondo blanco, texto azul */
+.webh-acc-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px;
+  font-size: 2.1rem;
+  font-family: "determination-mono-web-font", Sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background: #fff;
+  color: #0b0f1a;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+  text-align: left;
+}
+
+/* 2. Abierto (activo): fondo azul, texto amarillo */
+.webh-acc-button[aria-expanded="true"] {
+  background: #0b0f1a;
+  color: #FBBD2F;
+}
+
+/* 3. Hover (SOLO si está cerrado): fondo azul, texto amarillo */
+.webh-acc-item:not(.is-open) .webh-acc-button:hover {
+  background: #0b0f1a;
+  color: #FBBD2F;
+}
+
+/* ========= FUENTE ESPECIAL ========= */
+.webh-acc-title,
+.webh-acc-btn {
+  font-family: "determination-mono-web-font", Sans-serif;
+}
+
+/* ========= PANEL DE CONTENIDO Y ANIMACIÓN ========= */
+.webh-acc-panel {
+  padding: 30px 20px 20px 20px;
+  background: #fff;
+  color: #171621;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  border-radius: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.8s cubic-bezier(.22, .61, .36, 1), opacity 0.6s;
+  will-change: max-height, opacity;
+}
+.webh-acc-item.is-open .webh-acc-panel {
+  max-height: 1200px;
+  opacity: 1;
+  transition: max-height 1.1s cubic-bezier(.22, .61, .36, 1), opacity 0.8s;
+}
+
+/* ========= TEXTO, ACCIONES Y BOTÓN CTA ========= */
+.webh-acc-content {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #171621;
+  margin-bottom: 0;
+  padding: 0;
+}
+.webh-acc-content p { margin: 0 0 10px 0; padding: 0; }
+.webh-acc-actions { margin: 0; padding: 0; text-align: left; }
+.webh-acc-actions p, .webh-acc-panel p { margin: 0 0 10px 0 !important; padding: 0 !important; }
+.webh-acc-btn {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 20px;
+  background: #1A1326;
+  color: #fff;
+  border-radius: 0;
+  margin-top: 14px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: transform .16s cubic-bezier(.36,0,.66,-0.56), background .18s;
+}
+.webh-acc-btn:hover,
+.webh-acc-btn:focus {
+  background: #0b0f1a;
+  color: #fff;
+  transform: scale(.97);
+}
+
+/* ========= ICONO FLECHA ROTATORIO ========= */
+.webh-acc-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.webh-acc-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform .25s cubic-bezier(.5,.2,.5,1);
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+}
+.webh-acc-item.is-open .webh-acc-icon img { transform: rotate(90deg); }
+
+/* ========= RESPONSIVE ========= */
+@media (max-width: 850px) {
+  .webh-accordion { max-width: 100%; }
+  .webh-acc-button { padding: 20px 16px; font-size: 1.5rem; }
+  .webh-acc-panel { padding: 18px 12px 16px 12px; font-size: 1.12rem; }
+  .webh-acc-icon { width: 28px; height: 28px; }
+}
+@media (max-width: 540px) {
+  .webh-acc-button { padding: 12px 10px; font-size: 1.1rem; }
+  .webh-acc-panel { padding: 12px 8px 10px 8px; font-size: 1.01rem; }
+  .webh-acc-title { font-size: 1.1rem; letter-spacing: 0.5px; word-break: break-word; }
+  .webh-acc-icon { width: 20px; height: 20px; }
+  .webh-acc-btn { font-size: 0.95rem; padding: 8px 14px; }
+}
+
+/* ========= ACCESIBILIDAD Y OVERRIDE ELEMENTOR ========= */
+.webh-accordion .webh-acc-button[type="button"]:focus,
+.webh-accordion .webh-acc-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  background: #0b0f1a;
+  color: #FBBD2F;
+}

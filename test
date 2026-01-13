@@ -1,0 +1,147 @@
+<?php
+/**
+ * Plugin Name: Elementor – ACF Path Dynamic Tags
+ * Description: Dynamic Tags para leer ACF por ruta (group.subfield y repeater[0].subfield).
+ * Version: 1.0.0
+ */
+
+if (!defined('ABSPATH')) exit;
+
+add_action('elementor/dynamic_tags/register', function($dynamic_tags){
+    if ( ! did_action('elementor/loaded') ) return;
+
+    // Namespace simple
+    class MC_ACF_Path_Base extends \Elementor\Core\DynamicTags\Tag {
+        public function get_group() { return 'mc-acf-path'; }
+        public function get_categories(){ return [ \Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY ]; }
+        protected function register_controls() {
+            $this->add_control('path', [
+                'label' => 'ACF Path (group.subfield o repeater[0].subfield)',
+                'type'  => \Elementor\Controls_Manager::TEXT,
+                'placeholder' => 'lp_estado_del_pais.lp_titulo_estado_pais',
+            ]);
+            $this->add_control('post_id', [
+                'label' => 'Post ID (opcional)',
+                'type'  => \Elementor\Controls_Manager::TEXT,
+                'placeholder' => 'auto (post actual)',
+            ]);
+        }
+        protected function resolve_value($expect = 'text'){
+            $path = trim($this->get_settings('path') ?: '');
+            if(!$path) return '';
+
+            $post_id = trim($this->get_settings('post_id') ?: '');
+            if($post_id === '') $post_id = get_the_ID();
+
+            // Soporte path con puntos e índices [n]
+            $segments = preg_split('/\./', $path);
+            $value = null;
+
+            // Cargamos primer nivel: si el primer segmento es un grupo/repeater, usamos get_field
+            $first = array_shift($segments);
+            $value = function_exists('get_field') ? get_field($first, $post_id) : null;
+
+            // Si no existe, intentamos leerlo como meta directa (para campos simples sin grupo)
+            if($value === null){
+                $value = get_post_meta($post_id, $first, true);
+            }
+
+            // Navegar por el array usando los siguientes segmentos (con soporte [index])
+            foreach($segments as $seg){
+                if ($value === null || $value === '') break;
+
+                // Detectar índice ej: items[0]
+                if (preg_match('/^([^\[]+)\[(\d+)\]$/', $seg, $m)){
+                    $key = $m[1];
+                    $idx = intval($m[2]);
+                    $value = (is_array($value) && isset($value[$key][$idx])) ? $value[$key][$idx] : null;
+                } else {
+                    // Navegación simple
+                    if (is_array($value)) {
+                        // Si es un subcampo directo guardado plano en meta (grupo_name_subcampo)
+                        if (!isset($value[$seg])) {
+                            // fallback: intenta meta plana
+                            $flat_key = $first . '_' . implode('_', $segments);
+                            $flat = get_post_meta($post_id, $flat_key, true);
+                            if($flat !== '' && $flat !== null){ $value = $flat; break; }
+                        }
+                        $value = isset($value[$seg]) ? $value[$seg] : null;
+                    } else {
+                        $value = null;
+                    }
+                }
+            }
+
+            // Normalizar según lo esperado
+            if ($expect === 'url') {
+                // Si retorna array de imagen ACF (url/id/size)
+                if (is_array($value) && isset($value['url'])) return esc_url($value['url']);
+                // Si retorna ID de imagen
+                if (is_numeric($value)) {
+                    $img = wp_get_attachment_image_src(intval($value), 'full');
+                    return $img ? esc_url($img[0]) : '';
+                }
+                return is_string($value) ? esc_url($value) : '';
+            }
+
+            if ($expect === 'image_url') {
+                // Forzar a URL de imagen
+                if (is_array($value) && isset($value['url'])) return esc_url($value['url']);
+                if (is_numeric($value)) {
+                    $img = wp_get_attachment_image_src(intval($value), 'full');
+                    return $img ? esc_url($img[0]) : '';
+                }
+                return is_string($value) ? esc_url($value) : '';
+            }
+
+            // Texto por defecto
+            if (is_array($value)) {
+                // Intenta colapsar arrays simples (checkbox con un valor)
+                if (count($value) === 1) return esc_html((string) array_values($value)[0]);
+                return esc_html(json_encode($value, JSON_UNESCAPED_UNICODE));
+            }
+            if (is_bool($value)) return $value ? '1' : '0';
+            return is_string($value) || is_numeric($value) ? wp_kses_post((string)$value) : '';
+        }
+    }
+
+    // Registrar el grupo
+    add_filter('elementor/dynamic_tags/groups', function($groups){
+        $groups['mc-acf-path'] = [
+            'title' => 'ACF Path (MarsChallenge)',
+        ];
+        return $groups;
+    });
+
+    // Tag: Text
+    if (!class_exists('MC_ACF_Path_Text')) {
+        class MC_ACF_Path_Text extends MC_ACF_Path_Base {
+            public function get_name(){ return 'mc-acf-path-text'; }
+            public function get_title(){ return 'ACF Path: Text'; }
+            public function render(){ echo $this->resolve_value('text'); }
+        }
+    }
+    // Tag: URL
+    if (!class_exists('MC_ACF_Path_URL')) {
+        class MC_ACF_Path_URL extends MC_ACF_Path_Base {
+            public function get_name(){ return 'mc-acf-path-url'; }
+            public function get_title(){ return 'ACF Path: URL'; }
+            public function get_categories(){ return [ \Elementor\Modules\DynamicTags\Module::URL_CATEGORY ]; }
+            public function render(){ echo $this->resolve_value('url'); }
+        }
+    }
+    // Tag: Image URL
+    if (!class_exists('MC_ACF_Path_Image_URL')) {
+        class MC_ACF_Path_Image_URL extends MC_ACF_Path_Base {
+            public function get_name(){ return 'mc-acf-path-image-url'; }
+            public function get_title(){ return 'ACF Path: Image URL'; }
+            public function get_categories(){ return [ \Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY ]; }
+            public function render(){ echo $this->resolve_value('image_url'); }
+        }
+    }
+
+    // Finalmente registrar las tres
+    $dynamic_tags->register(new \MC_ACF_Path_Text());
+    $dynamic_tags->register(new \MC_ACF_Path_URL());
+    $dynamic_tags->register(new \MC_ACF_Path_Image_URL());
+});
