@@ -1,17 +1,19 @@
-<?php
-/*
-Plugin Name: webHelpers
-Description: Colección modular de shortcodes y utilidades para WordPress (2025-ready). Incluye acordeón ACF listo para usar.
-Version: 1.0.6
-Author: Enlaweb
-Text Domain: webhelpers
-Requires at least: 6.0
-Requires PHP: 7.4
-*/
+/**
+ * Plugin Name: EWEB - Mars Challenge Webhelpers
+ * Description: Colección modular de shortcodes y utilidades para Mars Challenge (2025-ready). Incluye soporte para WPML, ACF y actualizaciones automáticas.
+ * Version: 1.0.7
+ * Author: Yisus Develop
+ * Author URI: https://github.com/Yisus-Develop
+ * License: GPL v2 or later
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
+ * Text Domain: webhelpers
+ * Domain Path: /languages
+ */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'WEBHELPERS_VERSION', '1.0.6' );
+define( 'WEBHELPERS_VERSION', '1.0.7' );
 define( 'WEBHELPERS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WEBHELPERS_URL',  plugin_dir_url( __FILE__ ) );
 
