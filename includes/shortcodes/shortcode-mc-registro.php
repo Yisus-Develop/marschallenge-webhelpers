@@ -61,66 +61,66 @@ add_shortcode('mc_registro', function($atts){
   // Pasa el mapa a JS (deshabilita tarjetas que no tengan ID)
   wp_add_inline_script('mc-registro', 'window.__MC_FORM_MAP = '.wp_json_encode($cf7_map).';', 'before');
 
-  // Tarjetas - Ahora Internacionalizadas con WPML
+  // Tarjetas - Internacionalizadas con WPML (usando nombres únicos)
   $cards = [
     [
       'slug'  => 'zer',
-      'title' => icl_t('webhelpers', 'JÓVENES (ZERS)', 'JÓVENES (ZERS)'),
-      'desc'  => icl_t('webhelpers', 'Tengo 15 a 29 años y quiero participar en un hackathon.', 'Tengo 15 a 29 años y quiero participar en un hackathon.'),
-      'cta'   => icl_t('webhelpers', 'Unirme como Zer', 'Unirme como Zer'),
+      'title' => icl_t('webhelpers', 'card_zer_title', 'JÓVENES (ZERS)'),
+      'desc'  => icl_t('webhelpers', 'card_zer_desc', 'Tengo 15 a 29 años y quiero participar en un hackathon.'),
+      'cta'   => icl_t('webhelpers', 'card_zer_cta', 'Unirme como Zer'),
       'emoji' => '🧑‍🚀',
       'img_id' => 2937 
     ],
     [
       'slug'  => 'mentor',
-      'title' => icl_t('webhelpers', 'MAESTRO O MENTOR', 'MAESTRO O MENTOR'),
-      'desc'  => icl_t('webhelpers', 'Quiero guiar e inspirar a los Zers.', 'Quiero guiar e inspirar a los Zers.'),
-      'cta'   => icl_t('webhelpers', 'Ser maestro/mentor', 'Ser maestro/mentor'),
+      'title' => icl_t('webhelpers', 'card_mentor_title', 'MAESTRO O MENTOR'),
+      'desc'  => icl_t('webhelpers', 'card_mentor_desc', 'Quiero guiar e inspirar a los Zers.'),
+      'cta'   => icl_t('webhelpers', 'card_mentor_cta', 'Ser maestro/mentor'),
       'emoji' => '👩‍🏫',
       'img_id' => 2934 
     ],
     
     [
       'slug'  => 'institucion',
-      'title' => icl_t('webhelpers', 'INSTITUCIÓN EDUCATIVA', 'INSTITUCIÓN EDUCATIVA'),
-      'desc'  => icl_t('webhelpers', 'Represento a una escuela, universidad o centro técnico.', 'Represento a una escuela, universidad o centro técnico.'),
-      'cta'   => icl_t('webhelpers', 'Registrar institución', 'Registrar institución'),
+      'title' => icl_t('webhelpers', 'card_inst_title', 'INSTITUCIÓN EDUCATIVA'),
+      'desc'  => icl_t('webhelpers', 'card_inst_desc', 'Represento a una escuela, universidad o centro técnico.'),
+      'cta'   => icl_t('webhelpers', 'card_inst_cta', 'Registrar institución'),
       'emoji' => '🏫',
       'img_id' => 2940 
     ],
     
     [
       'slug'  => 'empresa',
-      'title' => icl_t('webhelpers', 'EMPRESA', 'EMPRESA'),
-      'desc'  => icl_t('webhelpers', 'Quiero colaborar con recursos, mentoría o desafíos.', 'Quiero colaborar con recursos, mentoría o desafíos.'),
-      'cta'   => icl_t('webhelpers', 'Conectar empresa', 'Conectar empresa'),
+      'title' => icl_t('webhelpers', 'card_empresa_title', 'EMPRESA'),
+      'desc'  => icl_t('webhelpers', 'card_empresa_desc', 'Quiero colaborar con recursos, mentoría o desafíos.'),
+      'cta'   => icl_t('webhelpers', 'card_empresa_cta', 'Conectar empresa'),
       'emoji' => '💼',
       'img_id' => 2939 
     ],
     
     [
       'slug'  => 'ciudad',
-      'title' => icl_t('webhelpers', 'CIUDAD / GOBIERNO LOCAL', 'CIUDAD / GOBIERNO LOCAL'),
-      'desc'  => icl_t('webhelpers', 'Mi ciudad quiere ser una Mars Challenge City.', 'Mi ciudad quiere ser una Mars Challenge City.'),
-      'cta'   => icl_t('webhelpers', 'Postular ciudad', 'Postular ciudad'),
+      'title' => icl_t('webhelpers', 'card_ciudad_title', 'CIUDAD / GOBIERNO LOCAL'),
+      'desc'  => icl_t('webhelpers', 'card_ciudad_desc', 'Mi ciudad quiere ser una Mars Challenge City.'),
+      'cta'   => icl_t('webhelpers', 'card_ciudad_cta', 'Postular ciudad'),
       'emoji' => '🏙',
       'img_id' => 2938 
     ],
     
     [
       'slug'  => 'pioneer',
-      'title' => icl_t('webhelpers', 'MISSION PARTNER / PIONEER', 'MISSION PARTNER / PIONEER'),
-      'desc'  => icl_t('webhelpers', 'Quiero liderar Mars Challenge en mi país.', 'Quiero liderar Mars Challenge en mi país.'),
-      'cta'   => icl_t('webhelpers', 'Ser pionero', 'Ser pionero'),
+      'title' => icl_t('webhelpers', 'card_pioneer_title', 'MISSION PARTNER / PIONEER'),
+      'desc'  => icl_t('webhelpers', 'card_pioneer_desc', 'Quiero liderar Mars Challenge en mi país.'),
+      'cta'   => icl_t('webhelpers', 'card_pioneer_cta', 'Ser pionero'),
       'emoji' => '🚩',
       'img_id' => 2936
     ],
     
     [
       'slug'  => 'pais',
-      'title' => icl_t('webhelpers', 'PAIS', 'PAIS'),
-      'desc'  => icl_t('webhelpers', 'Mi país quiere ser una parte de Mars Challenge.', 'Mi país quiere ser una parte de Mars Challenge.'),
-      'cta'   => icl_t('webhelpers', 'Postular país', 'Postular país'),
+      'title' => icl_t('webhelpers', 'card_pais_title', 'PAIS'),
+      'desc'  => icl_t('webhelpers', 'card_pais_desc', 'Mi país quiere ser una parte de Mars Challenge.'),
+      'cta'   => icl_t('webhelpers', 'card_pais_cta', 'Postular país'),
       'emoji' => '🌍',
       'img_id' => 2935
     ],
@@ -130,11 +130,11 @@ add_shortcode('mc_registro', function($atts){
 
 
 <section  class="mc-form-area" aria-live="polite" aria-busy="false">
-    <div class="mc-form-placeholder"><?php echo icl_t('webhelpers', 'Selecciona un perfil para continuar.', 'Selecciona un perfil para continuar.'); ?></div>
+    <div class="mc-form-placeholder"><?php echo icl_t('webhelpers', 'placeholder', 'Selecciona un perfil para continuar.'); ?></div>
   </section>
 
 
-<section class="mc-cards" aria-label="<?php echo esc_attr(icl_t('webhelpers', 'Elige tu perfil', 'Elige tu perfil')); ?>">
+<section class="mc-cards" aria-label="<?php echo esc_attr(icl_t('webhelpers', 'aria_label', 'Elige tu perfil')); ?>">
   <?php foreach ($cards as $card): ?>
     <?php $imgUrl = !empty($card['img_id']) ? wp_get_attachment_image_url((int)$card['img_id'], 'medium') : ''; ?>
     <article class="mc-card" data-profile="<?php echo esc_attr($card['slug']); ?>" role="button" tabindex="0" aria-controls="mc-form-area">

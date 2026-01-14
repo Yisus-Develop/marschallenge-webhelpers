@@ -2,7 +2,7 @@
 /**
  * Plugin Name: EWEB - Mars Challenge Webhelpers
  * Description: Colección modular de shortcodes y utilidades para Mars Challenge (2025-ready). Incluye soporte para WPML, ACF y actualizaciones automáticas.
- * Version: 1.0.9
+ * Version: 1.1.0
  * Author: Yisus Develop
  * Author URI: https://github.com/Yisus-Develop
  * License: GPL v2 or later
@@ -14,7 +14,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'WEBHELPERS_VERSION', '1.0.9' );
+define( 'WEBHELPERS_VERSION', '1.1.0' );
 define( 'WEBHELPERS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WEBHELPERS_URL',  plugin_dir_url( __FILE__ ) );
 
