@@ -39,7 +39,7 @@ add_shortcode( 'webh_acf_accordion', function( $atts ) {
             
             $safe_link  = esc_url( (string) $link );
             // Si WPML está activo y el link es interno, intentamos traducirlo
-            if ( function_exists( 'wpml_object_id' ) && ! empty( $safe_link ) ) {
+            if ( function_exists( 'wpml_object_id' ) && defined('ICL_LANGUAGE_CODE') && ! empty( $safe_link ) ) {
                 $home_url = home_url();
                 if ( strpos( $safe_link, $home_url ) !== false ) {
                     $safe_link = apply_filters( 'wpml_permalink', $safe_link, ICL_LANGUAGE_CODE );

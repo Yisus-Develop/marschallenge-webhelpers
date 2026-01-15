@@ -1,6 +1,13 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+// Fallback para icl_t() cuando WPML no está activo
+if (!function_exists('icl_t')) {
+    function icl_t($context, $name, $default = '') {
+        return $default;
+    }
+}
+
 // Assets para tarjetas+CF7
 add_action('wp_enqueue_scripts', function () {
   wp_register_style ('mc-registro',      WEBHELPERS_URL . 'assets/css/mc-registro.css', [], WEBHELPERS_VERSION);
